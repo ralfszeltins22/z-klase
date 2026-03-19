@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Par projektu — Z-Klase</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page-header { padding: 60px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 56px; }
+.page-header h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
+.page-header p { font-size: 15px; color: var(--text-muted); }
+.credits-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-bottom: 64px; }
+.about-text h2 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+.about-text p { font-size: 15px; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px; }
+.about-text p:last-child { margin-bottom: 0; }
+.info-card { padding: 24px; height: fit-content; }
+.info-card h3 { font-size: 13px; font-weight: 500; color: var(--text-subtle); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px; }
+.info-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.info-row:last-child { border-bottom: none; }
+.info-row span:first-child { color: var(--text-muted); }
+.info-row span:last-child { font-weight: 500; }
+.contributors-section { margin-bottom: 64px; }
+.contributors-section h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 24px; }
+.contributors-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.contributor-card { padding: 20px; display: flex; align-items: center; gap: 14px; }
+.contributor-avatar {
+  width: 40px; height: 40px; border-radius: 50%; background: #EDF2FD;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary); flex-shrink: 0; font-size: 15px; font-weight: 600;
+}
+@media (prefers-color-scheme: dark) { .contributor-avatar { background: #1e2235; } }
+.contributor-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.contributor-info span { font-size: 13px; color: var(--text-subtle); }
+.changelog-section { margin-bottom: 64px; }
+.changelog-section h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 24px; }
+.changelog-item { padding: 20px 0; border-bottom: 1px solid var(--border); display: flex; gap: 20px; }
+.changelog-item:last-child { border-bottom: none; }
+.changelog-version {
+  font-size: 13px; font-weight: 600; color: var(--primary); background: #EDF2FD;
+  padding: 3px 10px; border-radius: 6px; height: fit-content; white-space: nowrap; margin-top: 2px;
+}
+@media (prefers-color-scheme: dark) { .changelog-version { background: #1e2235; } }
+.changelog-content h3 { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+.changelog-content p { font-size: 14px; color: var(--text-muted); }
+@media (max-width: 768px) { .credits-layout { grid-template-columns: 1fr; } .contributors-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Z<span>-Klase</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Sākums</a></li>
+      <li><a href="download.html">Lejupielāde</a></li>
+      <li><a href="credits.html" class="active">Par projektu</a></li>
+      <li><a href="license.html">Licence</a></li>
+      <li><a href="contact.html">Kontakti</a></li>
+      <li><a href="download.html" class="nav-cta">Lejupielādēt</a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-open" aria-label="Atvērt izvēlni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+<main>
+  <div class="container">
+    <div class="page-header">
+      <h1>Par projektu</h1>
+      <p>Informācija par Z-Klase projektu, autoriem un versiju vēsturi.</p>
+    </div>
+    <div class="credits-layout">
+      <div class="about-text">
+        <h2>Kas ir Z-Klase?</h2>
+        <p>Z-Klase ir bezmaksas Tampermonkey skripts, kas uzlabo e-klase.lv lietotāju pieredzi. Skripts atbloķē Ģimenes Komplekta funkcijas, noņem reklāmas un uzlabo portāla darbību.</p>
+        <p>Projekts tika izveidots, lai skolēniem un vecākiem būtu pieejamas visas portāla iespējas bez maksas. Z-Klase pirmkods ir publiski pieejams pārbaudei, taču tas ir aizsargāts ar īpašumtiesību licenci.</p>
+        <p>Skripts darbojas tikai pārlūkprogrammā un nemaina nekādus servera datus. Visas izmaiņas notiek lokāli jūsu ierīcē.</p>
+      </div>
+      <div class="info-card card">
+        <h3>Informācija</h3>
+        <div class="info-row"><span>Versija</span><span>2.3</span></div>
+        <div class="info-row"><span>Licence</span><span><a href="license.html" style="color:var(--primary)">Īpašumtiesību</a></span></div>
+        <div class="info-row"><span>Platformas</span><span>Web, Android</span></div>
+        <div class="info-row"><span>GitHub</span><span><a href="https://ralfszeltins22.github.io" target="_blank" style="color:var(--primary)">ralfszeltins22</a></span></div>
+      </div>
+    </div>
+    <div class="contributors-section">
+      <h2>Autori</h2>
+      <div class="contributors-grid">
+        <div class="contributor-card card">
+          <div class="contributor-avatar">R</div>
+          <div class="contributor-info">
+            <h4>ralfszeltins2</h4>
+            <span>Galvenais izstrādātājs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="changelog-section">
+      <h2>Versiju vēsture</h2>
+      <div class="changelog-item">
+        <div class="changelog-version">v2.3</div>
+        <div class="changelog-content">
+          <h3>Jaunākā versija</h3>
+          <p>Pievienota 403 kļūdu apstrāde, uzlabotas API pārtveršanas iespējas, jauni galapunktu aizstājēji.</p>
+        </div>
+      </div>
+      <div class="changelog-item">
+        <div class="changelog-version">v2.2</div>
+        <div class="changelog-content">
+          <h3>Stabilizācija</h3>
+          <p>Laboti aizlieguma pārbaudes kļūdas, uzlabota atjauninājumu sistēma.</p>
+        </div>
+      </div>
+      <div class="changelog-item">
+        <div class="changelog-version">v2.0</div>
+        <div class="changelog-content">
+          <h3>Pilns pārraksts</h3>
+          <p>Pievienota aizliegumu sistēma, Fetch un XHR pārtveršana, reklāmu bloķēšana.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="footer-inner">
+    <span>© 2025 Z-Klase · ralfszeltins2</span>
+    <div class="footer-links">
+      <a href="download.html">Lejupielāde</a>
+      <a href="credits.html">Par projektu</a>
+      <a href="license.html">Licence</a>
+      <a href="contact.html">Kontakti</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var nav = document.getElementById('mobile-nav');
+  var open = document.getElementById('nav-open');
+  var close = document.getElementById('nav-close');
+  open.addEventListener('click', function(){ nav.classList.add('open'); document.body.style.overflow='hidden'; });
+  function closeNav(){ nav.classList.remove('open'); document.body.style.overflow=''; }
+  close.addEventListener('click', closeNav);
+  nav.addEventListener('click', function(e){ if(e.target === nav) closeNav(); });
+})();
+</script>
+</body>
+</html>

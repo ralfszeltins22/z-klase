@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lejupielāde — Z-Klase</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page-header { padding: 60px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 56px; }
+.page-header h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
+.page-header p { font-size: 15px; color: var(--text-muted); }
+
+.download-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 56px; }
+.download-card { padding: 32px; display: flex; flex-direction: column; }
+.download-card-icon { width: 48px; height: 48px; background: #EDF2FD; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 20px; }
+@media (prefers-color-scheme: dark) { .download-card-icon { background: #1e2235; } }
+.download-card h2 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+.download-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; flex: 1; }
+.version-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-subtle); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; margin-bottom: 16px; }
+.download-meta { display: flex; flex-direction: column; gap: 4px; margin-bottom: 20px; }
+.download-meta span { font-size: 13px; color: var(--text-subtle); display: flex; align-items: center; gap: 6px; }
+.license-agree { font-size: 12px; color: var(--text-subtle); margin-bottom: 12px; line-height: 1.5; }
+.license-agree a { color: var(--primary); }
+.license-agree a:hover { text-decoration: underline; }
+
+.tm-section { margin-bottom: 64px; }
+.tm-section > h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; }
+.tm-section > p { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+
+.tm-detected { margin-bottom: 28px; }
+.tm-detected-label { font-size: 12px; font-weight: 500; color: var(--primary); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 12px; }
+.tm-main-card { padding: 24px; display: flex; align-items: center; gap: 20px; }
+.tm-browser-icon { width: 44px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.tm-main-info { flex: 1; }
+.tm-main-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.tm-main-info p { font-size: 13px; color: var(--text-muted); }
+.tm-main-note { margin-top: 12px; padding: 10px 14px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.tm-main-note strong { color: var(--text); }
+
+.tm-other-label { font-size: 12px; font-weight: 500; color: var(--text-subtle); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 12px; }
+.tm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.tm-card { padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; transition: box-shadow 0.15s; }
+.tm-card:hover { box-shadow: 0 12px 20px -4px rgba(20,21,26,0.1), 0 4px 8px -2px rgba(20,21,26,0.06); }
+.tm-card svg { display: block; }
+.tm-card span { font-size: 13px; font-weight: 500; }
+.tm-card small { font-size: 12px; color: var(--text-subtle); }
+
+.install-steps { margin-bottom: 64px; }
+.install-steps h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 24px; }
+.install-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.itab { padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: var(--card-border); background: var(--card); color: var(--text-muted); transition: background 0.15s, color 0.15s; }
+.itab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.steps-panel { display: none; }
+.steps-panel.active { display: block; }
+.steps-list { display: flex; flex-direction: column; }
+.step { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+.step:last-child { border-bottom: none; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.step-content h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+.step-content p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+.step-content a { color: var(--primary); }
+.step-content a:hover { text-decoration: underline; }
+.step-note { display: inline-flex; align-items: flex-start; gap: 8px; margin-top: 8px; padding: 10px 12px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; font-size: 13px; color: #92400e; line-height: 1.55; }
+@media (prefers-color-scheme: dark) { .step-note { background: #1c1a0e; border-color: #3d3000; color: #d4a820; } }
+
+@media (max-width: 768px) { .download-grid { grid-template-columns: 1fr; } .tm-grid { grid-template-columns: repeat(2, 1fr); } .tm-main-card { flex-direction: column; align-items: flex-start; } }
+@media (max-width: 480px) { .tm-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Z<span>-Klase</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Sākums</a></li>
+      <li><a href="download.html" class="active">Lejupielāde</a></li>
+      <li><a href="credits.html">Par projektu</a></li>
+      <li><a href="license.html">Licence</a></li>
+      <li><a href="contact.html">Kontakti</a></li>
+      <li><a href="download.html" class="nav-cta">Lejupielādēt</a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-open" aria-label="Atvērt izvēlni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <div class="mobile-nav-panel">
+    <div class="mobile-nav-head">
+      <a href="index.html" class="nav-logo">Z<span>-Klase</span></a>
+      <button class="mobile-nav-close" id="nav-close" aria-label="Aizvērt izvēlni">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M14 4L4 14M4 4l10 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html">Sākums</a></li>
+      <li><a href="download.html" class="active">Lejupielāde</a></li>
+      <li><a href="credits.html">Par projektu</a></li>
+      <li><a href="license.html">Licence</a></li>
+      <li><a href="contact.html">Kontakti</a></li>
+    </ul>
+    <div class="mobile-nav-cta">
+      <a href="download.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Lejupielādēt
+      </a>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+    <div class="page-header">
+      <h1>Lejupielāde</h1>
+      <p>Izvēlieties sev piemērotāko versiju un sāciet lietot Z-Klase.</p>
+    </div>
+
+    <div class="download-grid">
+      <div class="download-card card">
+        <div class="download-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="version-tag">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          v2.3 · Aktuāla
+        </div>
+        <h2>Tampermonkey versija</h2>
+        <p>Pārlūka paplašinājuma versija darbvirsmas datoriem. Darbojas ar Chrome, Firefox, Edge un citiem pārlūkiem.</p>
+        <div class="download-meta">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Nepieciešams Tampermonkey</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>Windows · macOS · Linux</span>
+        </div>
+        <p class="license-agree">Lejupielādējot Jūs piekrītat <a href="license.html">licences noteikumiem</a>.</p>
+        <a href="#" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Instalēt skriptu
+        </a>
+      </div>
+      <div class="download-card card">
+        <div class="download-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <div class="version-tag">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          v1.0 · Aktuāla
+        </div>
+        <h2>Android versija</h2>
+        <p>Mobilā versija viedtālruņiem. Lejupielādējiet APK failu un instalējiet tieši savā Android ierīcē.</p>
+        <div class="download-meta">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>Android 8.0+</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Jāiespējo nezināmi avoti</span>
+        </div>
+        <p class="license-agree">Lejupielādējot Jūs piekrītat <a href="license.html">licences noteikumiem</a>.</p>
+        <a href="#" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Lejupielādēt APK
+        </a>
+      </div>
+    </div>
+
+    <div class="tm-section">
+      <h2>Iegūt Tampermonkey</h2>
+      <p>Z-Klase darbvirsmas versijai nepieciešams Tampermonkey pārlūka paplašinājums. Zemāk atradīsiet saiti savam pārlūkam.</p>
+
+      <div class="tm-detected">
+        <div class="tm-detected-label">Jūsu pārlūks</div>
+        <div class="tm-main-card card" id="tm-main-card">
+          <div class="tm-browser-icon" id="tm-browser-icon"></div>
+          <div class="tm-main-info">
+            <h3 id="tm-browser-name">Nosakām pārlūku...</h3>
+            <p id="tm-browser-desc"></p>
+            <div class="tm-main-note" id="tm-main-note" style="display:none"></div>
+          </div>
+          <a href="#" id="tm-main-btn" class="btn btn-primary" target="_blank" rel="noopener" style="white-space:nowrap">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Lejupielādēt
+          </a>
+        </div>
+      </div>
+
+      <div class="tm-other-label">Citi pārlūki</div>
+      <div class="tm-grid">
+        <a href="https://chromewebstore.google.com/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" rel="noopener" class="tm-card card" data-browser="chrome">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" fill="#fff" stroke="#E9EAEC" stroke-width="1"/><circle cx="14" cy="14" r="5.5" fill="#4285F4"/><path d="M14 8.5h9.1A9 9 0 0 0 5.3 11.5H14z" fill="#EA4335"/><path d="M23.1 8.5A9 9 0 0 1 10 22.8L5.3 11.5H14z" fill="#FBBC05"/><path d="M10 22.8A9 9 0 0 1 5.3 11.5L10 22.8z" fill="#34A853"/></svg>
+          <span>Chrome</span>
+          <small>Web Store</small>
+        </a>
+        <a href="https://microsoftedge.microsoft.com/addons/detail/iikmkjmpaadaobahmlepeloendndfphd" target="_blank" rel="noopener" class="tm-card card" data-browser="edge">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M5 18c1.2 2.6 3.8 4.5 7 4.5 4.1 0 7.5-2.8 8.3-6.5H13c-1.1 0-2-.9-2-2s.9-2 2-2h10.8A9 9 0 1 0 5 18z" fill="#0078D4"/><path d="M23 14c0 5-4 9-9 9-3.2 0-6-1.7-7.6-4.2C7.7 20.5 9.8 21 12 21c4.4 0 8-3.1 8-7h3z" fill="#50E6FF" opacity=".7"/></svg>
+          <span>Edge</span>
+          <small>Add-ons</small>
+        </a>
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/" target="_blank" rel="noopener" class="tm-card card" data-browser="firefox">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" fill="#FF9500"/><path d="M14 5c-1.8 0-3.4.5-4.8 1.4C11 7.2 12.3 8.8 13 11c.4 1.1.5 2.3.2 3.5-.3 1.2-1 2.2-2 2.9C9.5 18.3 8 18.5 7 18c.5 2.8 2.8 5 5.7 5.4.4.1.9.1 1.3.1 4.9 0 8.9-4 8.9-8.9C23 9.7 18.9 5 14 5z" fill="#FF6000"/></svg>
+          <span>Firefox</span>
+          <small>Add-ons</small>
+        </a>
+        <a href="https://addons.opera.com/en/extensions/details/tampermonkey-beta/" target="_blank" rel="noopener" class="tm-card card" data-browser="opera">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" fill="#FF1B2D"/><ellipse cx="14" cy="14" rx="4.5" ry="9" fill="#FF1B2D"/><ellipse cx="14" cy="14" rx="4.5" ry="9" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
+          <span>Opera</span>
+          <small>Add-ons</small>
+        </a>
+        <a href="https://apps.apple.com/app/tampermonkey/id6738342400" target="_blank" rel="noopener" class="tm-card card" data-browser="safari">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" fill="#006CFF"/><circle cx="14" cy="14" r="6" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><path d="M14 8v2M14 18v2M8 14h2M18 14h2" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" stroke-linecap="round"/><path d="M17 11l-4.5 3-1.5 3 3-1.5 3-4.5z" fill="#fff"/><circle cx="14" cy="14" r="1" fill="rgba(255,255,255,0.6)"/></svg>
+          <span>Safari</span>
+          <small>App Store</small>
+        </a>
+      </div>
+    </div>
+
+    <div class="install-steps">
+      <h2>Uzstādīšanas pamācība</h2>
+      <div class="install-tabs">
+        <button class="itab active" data-tab="chrome">Chrome / Brave</button>
+        <button class="itab" data-tab="edge">Edge</button>
+        <button class="itab" data-tab="firefox">Firefox</button>
+        <button class="itab" data-tab="opera">Opera</button>
+        <button class="itab" data-tab="safari">Safari</button>
+        <button class="itab" data-tab="android">Android</button>
+      </div>
+
+      <div class="steps-panel active" id="tab-chrome">
+        <div class="steps-list">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Instalējiet Tampermonkey</h3><p>Dodieties uz <a href="https://chromewebstore.google.com/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome Web Store</a> un instalējiet Tampermonkey paplašinājumu.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Iespējojiet izstrādātāja režīmu</h3><p>Atveriet <strong>chrome://extensions</strong> (vai Brave: <strong>brave://extensions</strong>) adreses joslā. Augšējā labajā stūrī iespējojiet <strong>Izstrādātāja režīms</strong> slēdzi.</p><div class="step-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Šis solis ir obligāts Chrome un Brave pārlūkos — bez tā lietotājskripti nedarbosies.</span></div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Iespējojiet lietotājskriptus Tampermonkey</h3><p>Paplašinājumu sarakstā atrodiet Tampermonkey. Noklikšķiniet uz <strong>Detaļas</strong>, pēc tam iespējojiet <strong>Atļaut lietotājskriptus</strong>. Dažreiz šī opcija ir tieši paplašinājuma ierakstā zem tā nosaukuma.</p></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Instalējiet Z-Klase skriptu</h3><p>Atgriezieties šeit un noklikšķiniet <strong>Instalēt skriptu</strong> augstāk. Tampermonkey automātiski atpazīs failu un palūgs apstiprinājumu.</p></div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-content"><h3>Atveriet e-klase.lv</h3><p>Dodieties uz <a href="https://family.e-klase.lv" target="_blank">family.e-klase.lv</a>. Z-Klase darbosies automātiski.</p></div></div>
+        </div>
+      </div>
+
+      <div class="steps-panel" id="tab-edge">
+        <div class="steps-list">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Instalējiet Tampermonkey</h3><p>Dodieties uz <a href="https://microsoftedge.microsoft.com/addons/detail/iikmkjmpaadaobahmlepeloendndfphd" target="_blank">Edge Add-ons</a> un instalējiet Tampermonkey.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Iespējojiet izstrādātāja režīmu</h3><p>Atveriet <strong>edge://extensions</strong>. Kreisajā sānjoslā iespējojiet <strong>Izstrādātāja režīms</strong>.</p><div class="step-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Edge, tāpat kā Chrome, prasa izstrādātāja režīmu lietotājskriptu darbībai.</span></div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Instalējiet Z-Klase skriptu</h3><p>Noklikšķiniet <strong>Instalēt skriptu</strong> augstāk un apstipriniet Tampermonkey dialogā.</p></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Atveriet e-klase.lv</h3><p>Dodieties uz <a href="https://family.e-klase.lv" target="_blank">family.e-klase.lv</a>. Skripts darbosies automātiski.</p></div></div>
+        </div>
+      </div>
+
+      <div class="steps-panel" id="tab-firefox">
+        <div class="steps-list">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Instalējiet Tampermonkey</h3><p>Dodieties uz <a href="https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/" target="_blank">Firefox Add-ons</a> un instalējiet Tampermonkey.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Instalējiet Z-Klase skriptu</h3><p>Noklikšķiniet <strong>Instalēt skriptu</strong> augstāk. Firefox un Tampermonkey automātiski parādīs instalācijas dialogu.</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Apstipriniet un atveriet e-klase.lv</h3><p>Pēc apstiprināšanas dodieties uz <a href="https://family.e-klase.lv" target="_blank">family.e-klase.lv</a>. Neviens papildu solis nav nepieciešams.</p></div></div>
+        </div>
+      </div>
+
+      <div class="steps-panel" id="tab-opera">
+        <div class="steps-list">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Instalējiet Tampermonkey</h3><p>Dodieties uz <a href="https://addons.opera.com/en/extensions/details/tampermonkey-beta/" target="_blank">Opera Add-ons</a> un instalējiet Tampermonkey.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Iespējojiet izstrādātāja režīmu</h3><p>Atveriet <strong>opera://extensions</strong> un iespējojiet <strong>Izstrādātāja režīms</strong> augšējā labajā stūrī.</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Instalējiet Z-Klase skriptu</h3><p>Noklikšķiniet <strong>Instalēt skriptu</strong> augstāk un apstipriniet.</p></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Atveriet e-klase.lv</h3><p>Dodieties uz <a href="https://family.e-klase.lv" target="_blank">family.e-klase.lv</a>.</p></div></div>
+        </div>
+      </div>
+
+      <div class="steps-panel" id="tab-safari">
+        <div class="steps-list">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Instalējiet Tampermonkey no App Store</h3><p>Atveriet <a href="https://apps.apple.com/app/tampermonkey/id6738342400" target="_blank">App Store</a> un instalējiet Tampermonkey.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Iespējojiet paplašinājumu Safari</h3><p>Atveriet <strong>Safari → Preferences → Extensions</strong> un atzīmējiet Tampermonkey kā iespējotu.</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Instalējiet Z-Klase skriptu</h3><p>Noklikšķiniet <strong>Instalēt skriptu</strong> augstāk un apstipriniet Tampermonkey logā.</p></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Atveriet e-klase.lv</h3><p>Dodieties uz <a href="https://family.e-klase.lv" target="_blank">family.e-klase.lv</a>.</p></div></div>
+        </div>
+      </div>
+
+      <div class="steps-panel" id="tab-android">
+        <div class="steps-list">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Lejupielādējiet APK</h3><p>Noklikšķiniet uz <strong>Lejupielādēt APK</strong> augstāk, lai iegūtu Z-Klase Android versiju.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Iespējojiet nezināmus avotus</h3><p>Atveriet <strong>Iestatījumi → Lietotnes → Speciālās piekļuves → Instalēt nezināmas lietotnes</strong> un atļaujiet savam failu pārvaldniekam vai pārlūkam instalēt APK.</p><div class="step-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Iestatījumu atrašanās vieta var atšķirties atkarībā no Android versijas un ražotāja.</span></div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Instalējiet APK</h3><p>Atrodiet lejupielādēto failu un atveriet to. Apstipriniet instalāciju.</p></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Atveriet lietotni</h3><p>Pēc instalācijas atveriet Z-Klase lietotni un izpildiet iestatīšanas norādījumus.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2025 Z-Klase · ralfszeltins2</span>
+    <div class="footer-links">
+      <a href="download.html">Lejupielāde</a>
+      <a href="credits.html">Par projektu</a>
+      <a href="license.html">Licence</a>
+      <a href="contact.html">Kontakti</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nav = document.getElementById('mobile-nav');
+  var open = document.getElementById('nav-open');
+  var close = document.getElementById('nav-close');
+  open.addEventListener('click', function(){ nav.classList.add('open'); document.body.style.overflow='hidden'; });
+  function closeNav(){ nav.classList.remove('open'); document.body.style.overflow=''; }
+  close.addEventListener('click', closeNav);
+  nav.addEventListener('click', function(e){ if(e.target === nav) closeNav(); });
+})();
+
+(function(){
+  var ua = navigator.userAgent;
+  var isEdge = /Edg\//.test(ua);
+  var isOpera = /OPR\//.test(ua);
+  var isFirefox = /Firefox\//.test(ua);
+  var isSafari = /Safari\//.test(ua) && !/Chrome\//.test(ua);
+  var isChrome = /Chrome\//.test(ua) && !isEdge && !isOpera;
+
+  var browsers = {
+    chrome:  { name: 'Google Chrome', desc: 'Chrome Web Store — klikšķiniet, lai instalētu', url: 'https://chromewebstore.google.com/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo', note: '<strong>Svarīgi:</strong> Pēc instalācijas atveriet <strong>chrome://extensions</strong>, iespējojiet <strong>Izstrādātāja režīmu</strong> un pēc tam Tampermonkey ierakstā iespējojiet <strong>Atļaut lietotājskriptus</strong>.', icon: '<svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="11" fill="#fff" stroke="#E9EAEC" stroke-width="1.5"/><circle cx="18" cy="18" r="7" fill="#4285F4"/><path d="M18 11h11.6A11 11 0 0 0 7.2 14.4H18z" fill="#EA4335"/><path d="M29.6 11A11 11 0 0 1 13 28.4L7.2 14.4H18z" fill="#FBBC05"/><path d="M13 28.4A11 11 0 0 1 7.2 14.4L13 28.4z" fill="#34A853"/></svg>' },
+    edge:    { name: 'Microsoft Edge', desc: 'Edge Add-ons — klikšķiniet, lai instalētu', url: 'https://microsoftedge.microsoft.com/addons/detail/iikmkjmpaadaobahmlepeloendndfphd', note: '<strong>Svarīgi:</strong> Atveriet <strong>edge://extensions</strong> un iespējojiet <strong>Izstrādātāja režīmu</strong>, lai ļautu Tampermonkey palaist skriptus.', icon: '<svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M7 23c1.5 3.2 4.7 5.5 8.7 5.5 5 0 9.2-3.4 10.2-8H16c-1.4 0-2.5-1.1-2.5-2.5S14.6 15.5 16 15.5H33A11 11 0 1 0 7 23z" fill="#0078D4"/><path d="M28.5 18c0 6-4.9 11-11 11-4 0-7.4-2.1-9.3-5.2C9.5 25.5 12 26.5 15 26.5c5.4 0 9.8-3.8 9.8-8.5h3.7z" fill="#50E6FF" opacity=".7"/></svg>' },
+    firefox: { name: 'Mozilla Firefox', desc: 'Firefox Add-ons — klikšķiniet, lai instalētu', url: 'https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/', note: null, icon: '<svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="11" fill="#FF9500"/><path d="M18 7C15.8 7 13.7 7.7 12 9c2.5.9 4.2 2.9 5.1 5.5.4 1.4.5 2.9.2 4.3-.4 1.5-1.2 2.7-2.5 3.6-1.6 1-3.5 1.2-4.8.5.7 3.5 3.5 6.1 7 6.6.5.1 1 .1 1.6.1 6 0 10.9-4.9 10.9-10.9C29.5 13.4 24.3 7 18 7z" fill="#FF6000"/></svg>' },
+    opera:   { name: 'Opera', desc: 'Opera Add-ons — klikšķiniet, lai instalētu', url: 'https://addons.opera.com/en/extensions/details/tampermonkey-beta/', note: '<strong>Svarīgi:</strong> Atveriet <strong>opera://extensions</strong> un iespējojiet <strong>Izstrādātāja režīmu</strong> pēc instalācijas.', icon: '<svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="11" fill="#FF1B2D"/><ellipse cx="18" cy="18" rx="5.5" ry="11" fill="none" stroke="#fff" stroke-width="1.8"/></svg>' },
+    safari:  { name: 'Safari', desc: 'App Store — klikšķiniet, lai instalētu', url: 'https://apps.apple.com/app/tampermonkey/id6738342400', note: null, icon: '<svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="11" fill="#006CFF"/><circle cx="18" cy="18" r="7.5" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/><path d="M21.5 14.5l-5.5 3.5-2 4 4-2 3.5-5.5z" fill="#fff"/><circle cx="18" cy="18" r="1.2" fill="rgba(255,255,255,0.5)"/></svg>' },
+  };
+
+  var key = isEdge ? 'edge' : isOpera ? 'opera' : isFirefox ? 'firefox' : isSafari ? 'safari' : 'chrome';
+  var b = browsers[key];
+
+  document.getElementById('tm-browser-icon').innerHTML = b.icon;
+  document.getElementById('tm-browser-name').textContent = b.name;
+  document.getElementById('tm-browser-desc').textContent = b.desc;
+  var btn = document.getElementById('tm-main-btn');
+  btn.href = b.url;
+  if (b.note) {
+    var noteEl = document.getElementById('tm-main-note');
+    noteEl.innerHTML = b.note;
+    noteEl.style.display = 'flex';
+    noteEl.style.alignItems = 'flex-start';
+    noteEl.style.gap = '8px';
+  }
+
+  var otherCards = document.querySelectorAll('.tm-card[data-browser]');
+  otherCards.forEach(function(c){ if(c.dataset.browser === key) c.style.display = 'none'; });
+
+  var tabs = document.querySelectorAll('.itab');
+  var panels = document.querySelectorAll('.steps-panel');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  var tabMap = { chrome: 'chrome', edge: 'edge', firefox: 'firefox', opera: 'opera', safari: 'safari' };
+  if (tabMap[key]) {
+    tabs.forEach(function(t){ t.classList.remove('active'); });
+    panels.forEach(function(p){ p.classList.remove('active'); });
+    var activeTab = document.querySelector('.itab[data-tab="' + tabMap[key] + '"]');
+    if (activeTab) activeTab.classList.add('active');
+    var activePanel = document.getElementById('tab-' + tabMap[key]);
+    if (activePanel) activePanel.classList.add('active');
+  }
+})();
+</script>
+</body>
+</html>
