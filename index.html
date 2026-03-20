@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Z-Klase — e-klase bez ierobežojumiem</title>
+<title>Z-Klase - Labāka E-klase</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .hero { padding: 80px 0 64px; }
@@ -54,14 +54,38 @@ h1 em { font-style: normal; color: var(--primary); }
   .cta-inner { flex-direction: column; padding: 32px; }
 }
 </style>
+<style>
+/* ── Split download button ── */
+.dl-split { position: relative; display: inline-flex; }
+.dl-main { border-radius: 10px 0 0 10px !important; padding-right: 14px !important; }
+.dl-chevron { border-radius: 0 10px 10px 0 !important; padding: 0 11px !important; border-left: 1px solid rgba(255,255,255,0.25) !important; min-width: 0; }
+.dl-chevron svg { display: block; transition: transform 0.2s; }
+.dl-split.open .dl-chevron svg { transform: rotate(180deg); }
+.dl-dropdown {
+  display: none; position: absolute; top: calc(100% + 8px); left: 0;
+  min-width: 230px; background: var(--card); border: var(--card-border);
+  border-radius: 12px; box-shadow: 0 16px 40px -8px rgba(20,21,26,0.18);
+  overflow: hidden; z-index: 100;
+}
+.dl-split.open .dl-dropdown { display: block; }
+.dl-option {
+  display: flex; align-items: center; gap: 10px; padding: 11px 16px;
+  font-size: 14px; font-weight: 500; color: var(--text); text-decoration: none;
+  transition: background 0.12s;
+}
+.dl-option:hover { background: var(--bg); }
+.dl-option svg { flex-shrink: 0; color: var(--text-muted); }
+.dl-option-all { border-top: 1px solid var(--border); color: var(--primary); }
+.dl-option-all svg { color: var(--primary); }
+</style>
 </head>
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Z<span>-Klase</span></a>
+    <a href="index.html" class="nav-logo"><span>Z-Klase</span></a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Sākums</a></li>
-      <li><a href="download.html">Lejupielāde</a></li>
+      <li><a href="download.html">Lejupielādēt</a></li>
       <li><a href="credits.html">Par projektu</a></li>
       <li><a href="license.html">Licence</a></li>
       <li><a href="contact.html">Kontakti</a></li>
@@ -72,6 +96,29 @@ h1 em { font-style: normal; color: var(--primary); }
     </button>
   </div>
 </nav>
+<div class="mobile-nav" id="mobile-nav">
+  <div class="mobile-nav-panel">
+    <div class="mobile-nav-head">
+      <a href="index.html" class="nav-logo"><span>Z-Klase</span></a>
+      <button class="mobile-nav-close" id="nav-close" aria-label="Aizvērt izvēlni">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M14 4L4 14M4 4l10 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="active">Sākums</a></li>
+      <li><a href="download.html">Lejupielādēt</a></li>
+      <li><a href="credits.html">Par projektu</a></li>
+      <li><a href="license.html">Licence</a></li>
+      <li><a href="contact.html">Kontakti</a></li>
+    </ul>
+    <div class="mobile-nav-cta">
+      <a href="download.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Lejupielādēt
+      </a>
+    </div>
+  </div>
+</div>
 <main>
   <section class="hero">
     <div class="container">
@@ -79,18 +126,37 @@ h1 em { font-style: normal; color: var(--primary); }
         <div class="hero-image">
           <div class="hero-image-inner">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-            <span>Ekrānuzņēmums</span>
+            <!-- <span>Ekrānuzņēmums</span> -->
           </div>
         </div>
         <div class="hero-content">
-          <div class="hero-badge"><span></span>Tampermonkey skripts</div>
-          <h1>e-klase bez <em>ierobežojumiem</em></h1>
-          <p class="hero-desc">Z-Klase atbloķē Ģimenes Komplekta funkcijas, noņem reklāmas un uzlabo pieredzi e-klase.lv portālā bez maksas.</p>
+          <!-- <div class="hero-badge"><span></span>200 izmanto</div> -->
+          <h1>Z-Klase <em>ierobežojumiem</em></h1>
+          <p class="hero-desc">Z-Klase atbloķē visas Ģimenes Komplekta funkcijas, noņem reklāmas un uzlabo E-klasi bez maksas.</p>
           <div class="hero-actions">
-            <a href="download.html" class="btn btn-primary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Lejupielādēt
-            </a>
+            <div class="dl-split" id="dl-split">
+              <a href="download.html" class="btn btn-primary dl-main" id="dl-main-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span id="dl-main-label">Lejupielādēt</span>
+              </a>
+              <button class="btn btn-primary dl-chevron" id="dl-chevron" aria-label="Citas platformas">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="dl-dropdown" id="dl-dropdown">
+                <a href="https://ralfszeltins22.github.io/z-klase/zklase.user.js" class="dl-option" data-platform="tampermonkey">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  <span>Darbvirsma (Tampermonkey)</span>
+                </a>
+                <a href="https://ralfszeltins22.github.io/z-klase/ZKlase.apk" class="dl-option" data-platform="android">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                  <span>Android APK</span>
+                </a>
+                <a href="download.html" class="dl-option dl-option-all">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  <span>Visas platformas</span>
+                </a>
+              </div>
+            </div>
             <a href="credits.html" class="btn btn-secondary">Par projektu</a>
           </div>
         </div>
@@ -106,27 +172,27 @@ h1 em { font-style: normal; color: var(--primary); }
         <div class="feature-card card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <h3>Premium atbloķēts</h3>
-          <p>Ģimenes Komplekta funkcijas pieejamas bez maksas — automātiski un bez sarežģītas uzstādīšanas.</p>
+          <p>Ģimenes Komplekta funkcijas pieejamas bez maksas.</p>
         </div>
         <div class="feature-card card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
           <h3>Bez reklāmām</h3>
-          <p>Portāls tīrs un bez reklāmām. Komerciālie paziņojumi tiek bloķēti automātiski.</p>
+          <p>Lieto E-klasi bez reklāmām! Visas reklāmas tiek bloķētas automātiski.</p>
         </div>
         <div class="feature-card card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
           <h3>Automātiski atjauninājumi</h3>
-          <p>Skripts atjauninās pats, tiklīdz būs pieejama jauna versija caur Tampermonkey.</p>
+          <p>Z-Klase atjauninās pati, tiklīdz ir pieejama jauna versija.</p>
         </div>
         <div class="feature-card card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
           <h3>Mobilā versija</h3>
-          <p>Pieejama arī mobilā versija lietošanai viedtālruņos un planšetdatoros.</p>
+          <p>Pieejama arī mobilā versija viedtālruņiem un planšetdatoriem.</p>
         </div>
         <div class="feature-card card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-          <h3>Atvērtais pirmkods</h3>
-          <p>Pilnīgi caurspīdīgs projekts. Pirmkods publiski pieejams un pārbaudāms.</p>
+          <h3>Vēlamies ieteikumus</h3>
+          <p>Ja jums ir problēma, ieteikums vai jebkas cits, sazinaties ar mums sadaļā 'Kontakti'.</p>
         </div>
         <div class="feature-card card">
           <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></div>
@@ -141,7 +207,7 @@ h1 em { font-style: normal; color: var(--primary); }
       <div class="cta-inner card">
         <div>
           <h2>Gatavs sākt?</h2>
-          <p>Lejupielādējiet Z-Klase un izmantojiet visas e-klase funkcijas jau šodien.</p>
+          <p>Lejupielādējiet Z-Klase un iegūstiet visas E-klase funkcijas jau šodien.</p>
         </div>
         <a href="download.html" class="btn btn-white">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -155,7 +221,7 @@ h1 em { font-style: normal; color: var(--primary); }
   <div class="footer-inner">
     <span>© 2025 Z-Klase · ralfszeltins2</span>
     <div class="footer-links">
-      <a href="download.html">Lejupielāde</a>
+      <a href="download.html">Lejupielādēt</a>
       <a href="credits.html">Par projektu</a>
       <a href="license.html">Licence</a>
       <a href="contact.html">Kontakti</a>
@@ -163,14 +229,49 @@ h1 em { font-style: normal; color: var(--primary); }
   </div>
 </footer>
 <script>
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   var nav = document.getElementById('mobile-nav');
   var open = document.getElementById('nav-open');
   var close = document.getElementById('nav-close');
+  if (!nav || !open || !close) return;
   open.addEventListener('click', function(){ nav.classList.add('open'); document.body.style.overflow='hidden'; });
   function closeNav(){ nav.classList.remove('open'); document.body.style.overflow=''; }
   close.addEventListener('click', closeNav);
   nav.addEventListener('click', function(e){ if(e.target === nav) closeNav(); });
+});
+</script>
+<script>
+(function(){
+  var ua = navigator.userAgent;
+  var isAndroid = /Android/.test(ua);
+  var isMobile = isAndroid || /iPhone|iPad/.test(ua);
+
+  var mainBtn = document.getElementById('dl-main-btn');
+  var mainLabel = document.getElementById('dl-main-label');
+  if (mainBtn && mainLabel) {
+    if (isAndroid) {
+      mainBtn.href = 'https://ralfszeltins22.github.io/z-klase/ZKlase.apk';
+      mainLabel.textContent = 'Lejupielādēt APK';
+    } else {
+      mainBtn.href = 'https://ralfszeltins22.github.io/z-klase/zklase.user.js';
+      mainLabel.textContent = 'Instalēt skriptu';
+    }
+  }
+
+  var split = document.getElementById('dl-split');
+  var chevron = document.getElementById('dl-chevron');
+  if (split && chevron) {
+    chevron.addEventListener('click', function(e) {
+      e.stopPropagation();
+      split.classList.toggle('open');
+    });
+    document.addEventListener('click', function() {
+      split.classList.remove('open');
+    });
+    document.getElementById('dl-dropdown').addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  }
 })();
 </script>
 </body>

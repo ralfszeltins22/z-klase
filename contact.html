@@ -46,10 +46,10 @@ textarea { resize: vertical; min-height: 120px; }
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Z<span>-Klase</span></a>
+    <a href="index.html" class="nav-logo"><span>Z-Klase</span></a>
     <ul class="nav-links">
       <li><a href="index.html">Sākums</a></li>
-      <li><a href="download.html">Lejupielāde</a></li>
+      <li><a href="download.html">Lejupielādēt</a></li>
       <li><a href="credits.html">Par projektu</a></li>
       <li><a href="license.html">Licence</a></li>
       <li><a href="contact.html" class="active">Kontakti</a></li>
@@ -63,14 +63,14 @@ textarea { resize: vertical; min-height: 120px; }
 <div class="mobile-nav" id="mobile-nav">
   <div class="mobile-nav-panel">
     <div class="mobile-nav-head">
-      <a href="index.html" class="nav-logo">Z<span>-Klase</span></a>
+      <a href="index.html" class="nav-logo"><span>Z-Klase</span></a>
       <button class="mobile-nav-close" id="nav-close" aria-label="Aizvērt izvēlni">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M14 4L4 14M4 4l10 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </button>
     </div>
     <ul class="mobile-nav-links">
       <li><a href="index.html">Sākums</a></li>
-      <li><a href="download.html">Lejupielāde</a></li>
+      <li><a href="download.html">Lejupielādēt</a></li>
       <li><a href="credits.html">Par projektu</a></li>
       <li><a href="license.html">Licence</a></li>
       <li><a href="contact.html" class="active">Kontakti</a></li>
@@ -161,7 +161,7 @@ textarea { resize: vertical; min-height: 120px; }
   <div class="footer-inner">
     <span>© 2025 Z-Klase · ralfszeltins2</span>
     <div class="footer-links">
-      <a href="download.html">Lejupielāde</a>
+      <a href="download.html">Lejupielādēt</a>
       <a href="credits.html">Par projektu</a>
       <a href="license.html">Licence</a>
       <a href="contact.html">Kontakti</a>
@@ -170,52 +170,16 @@ textarea { resize: vertical; min-height: 120px; }
 </footer>
 
 <script>
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   var nav = document.getElementById('mobile-nav');
   var open = document.getElementById('nav-open');
   var close = document.getElementById('nav-close');
+  if (!nav || !open || !close) return;
   open.addEventListener('click', function(){ nav.classList.add('open'); document.body.style.overflow='hidden'; });
   function closeNav(){ nav.classList.remove('open'); document.body.style.overflow=''; }
   close.addEventListener('click', closeNav);
   nav.addEventListener('click', function(e){ if(e.target === nav) closeNav(); });
-})();
-
-(function(){
-  var form = document.getElementById('contact-form');
-  var btn = document.getElementById('submit-btn');
-  var status = document.getElementById('form-status');
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    btn.classList.add('btn-loading');
-    btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:spin 0.8s linear infinite"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> Sūta...';
-
-    var data = new FormData(form);
-    fetch('https://formsubmit.co/ajax/d62a859d6f864a5d2431bc1f59a14177', {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: data
-    })
-    .then(function(r){ return r.json(); })
-    .then(function(res){
-      if (res.success === 'true' || res.success === true) {
-        status.className = 'form-status success';
-        status.textContent = 'Ziņojums nosūtīts. Atbildēsim pēc iespējas ātrāk.';
-        form.reset();
-      } else {
-        throw new Error('failed');
-      }
-    })
-    .catch(function(){
-      status.className = 'form-status error';
-      status.textContent = 'Neizdevās nosūtīt. Mēģiniet vēlreiz vai rakstiet uz mail.zklase@gmail.com.';
-    })
-    .finally(function(){
-      btn.classList.remove('btn-loading');
-      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Nosūtīt';
-    });
-  });
-})();
+});
 </script>
 <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
 </body>
