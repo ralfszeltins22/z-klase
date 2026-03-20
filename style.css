@@ -99,8 +99,7 @@ nav {
 .nav-hamburger:hover { background: var(--card); }
 
 .mobile-nav {
-  display: flex;
-  align-items: stretch;
+  display: none;
   position: fixed;
   inset: 0;
   z-index: 199;
@@ -108,11 +107,10 @@ nav {
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   opacity: 0;
-  pointer-events: none;
   transition: opacity 0.2s;
 }
 
-.mobile-nav.open { opacity: 1; pointer-events: auto; }
+.mobile-nav.open { opacity: 1; display: flex; align-items: stretch; }
 
 .mobile-nav-panel {
   position: absolute;
@@ -242,6 +240,6 @@ footer { border-top: 1px solid var(--border); padding: 20px 24px; }
 @media (max-width: 700px) {
   .nav-links { display: none; }
   .nav-hamburger { display: flex; align-items: center; justify-content: center; }
-  .mobile-nav { pointer-events: none; }
+  .mobile-nav { display: block; }
   .footer-inner { flex-direction: column; text-align: center; }
 }
