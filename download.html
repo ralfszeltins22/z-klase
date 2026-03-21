@@ -73,7 +73,7 @@
     <a href="index.html" class="nav-logo"><span>Z-Klase</span></a>
     <ul class="nav-links">
       <li><a href="index.html">Sākums</a></li>
-      <li><a href="download.html" class="active">Lejupielāde</a></li>
+      <li><a href="download.html" class="active">Lejupielādēt</a></li>
       <li><a href="credits.html">Par projektu</a></li>
       <li><a href="license.html">Licence</a></li>
       <li><a href="contact.html">Kontakti</a></li>
@@ -94,7 +94,7 @@
     </div>
     <ul class="mobile-nav-links">
       <li><a href="index.html">Sākums</a></li>
-      <li><a href="download.html" class="active">Lejupielāde</a></li>
+      <li><a href="download.html" class="active">Lejupielādēt</a></li>
       <li><a href="credits.html">Par projektu</a></li>
       <li><a href="license.html">Licence</a></li>
       <li><a href="contact.html">Kontakti</a></li>
@@ -111,7 +111,7 @@
 <main>
   <div class="container">
     <div class="page-header">
-      <h1>Lejupielāde</h1>
+      <h1>Lejupielādēt</h1>
       <p>Izvēlieties sev piemērotāko versiju un sāciet lietot Z-Klase.</p>
     </div>
 
@@ -222,7 +222,7 @@
       <div class="steps-panel active" id="tab-chrome">
         <div class="steps-list">
           <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Instalējiet Tampermonkey</h3><p>Dodieties uz <a href="https://chromewebstore.google.com/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank">Chrome Web Store</a> un instalējiet Tampermonkey paplašinājumu.</p></div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Iespējojiet izstrādātāja režīmu</h3><p>Atveriet <strong>chrome://extensions</strong> (vai Brave: <strong>brave://extensions</strong>) adreses joslā. Augšējā labajā stūrī iespējojiet <strong>Izstrādātāja režīms</strong> slēdzi.</p><div class="step-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Šis solis ir obligāts Chrome un Brave pārlūkos — bez tā lietotājskripti nedarbosies.</span></div></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Iespējojiet izstrādātāja režīmu</h3><p>Atveriet <strong>chrome://extensions</strong> (vai Brave: <strong>brave://extensions</strong>) adreses joslā. Augšējā labajā stūrī iespējojiet <strong>Izstrādātāja režīms</strong> slēdzi.</p><div class="step-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Šis solis ir obligāts Chrome un Brave pārlūkos - bez tā lietotājskripti nedarbosies.</span></div></div></div>
           <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Iespējojiet lietotājskriptus Tampermonkey</h3><p>Paplašinājumu sarakstā atrodiet Tampermonkey. Noklikšķiniet uz <strong>Detaļas</strong>, pēc tam iespējojiet <strong>Atļaut lietotājskriptus</strong>. Dažreiz šī opcija ir tieši paplašinājuma ierakstā zem tā nosaukuma.</p></div></div>
           <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Instalējiet Z-Klase skriptu</h3><p>Atgriezieties šeit un noklikšķiniet <strong>Instalēt skriptu</strong> augstāk. Tampermonkey automātiski atpazīs failu un palūgs apstiprinājumu.</p></div></div>
           <div class="step"><div class="step-num">5</div><div class="step-content"><h3>Atveriet e-klase.lv</h3><p>Dodieties uz <a href="https://family.e-klase.lv" target="_blank">family.e-klase.lv</a>. Z-Klase darbosies automātiski.</p></div></div>
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if (noteEl) noteEl.style.display = 'none';
     var btnEl = document.getElementById('tm-main-btn');
     btnEl.href = b.url;
-    btnEl.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> ' + b.name + ' jauns paplašinājums';
+    btnEl.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> ' + b.name + ' paplašinājums';
 
     // Hide detected browser from "other" grid
     document.querySelectorAll('.tm-card[data-browser]').forEach(function(card) {
