@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Z-Klase
 // @namespace    http://tampermonkey.net/
-// @version      3.0
+// @version      3.1
 // @description  Bypasses Ģimenes Komplekts
 // @author       ralfszeltins2
 // @match        https://family.e-klase.lv/*
