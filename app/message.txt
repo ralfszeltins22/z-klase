@@ -1,1 +1,1 @@
-false
+Ja jums ir problēmas un Z-Klase nelādējas, lūdzu pārinstalējiet lietotni, vai dodaties uz Iestatījumi > Lietotnes > Z-Klase > Atmiņa > Notīrīt datus
